@@ -29,14 +29,6 @@ if (isset($_SESSION['username']) && $_SESSION['username'] === 'DazRave') {
     $isAdmin = false;
 }
 
-// Handle clearing matches and users
-if ($isAdmin && isset($_POST['clear'])) {
-    // Logic to clear matches and users from the database
-    // Implement your clearing logic here
-
-    echo "Matches and users cleared.";
-}
-
 // Handle creating random users
 if ($isAdmin && isset($_POST['create_random_users'])) {
     // Create 10 random users for testing
@@ -70,15 +62,15 @@ if ($isAdmin && isset($_POST['clear_test_users'])) {
     
     <?php if ($isAdmin): ?>
         <form action="admin-clear.php" method="post">
-            <input type="submit" name="clear" value="Clear Matches and Users">
-        </form>
-        
-        <form action="admin-clear.php" method="post">
             <input type="submit" name="create_random_users" value="Create 10 Random Users">
         </form>
 
         <form action="admin-clear.php" method="post">
             <input type="submit" name="clear_test_users" value="Clear Test Users">
+        </form>
+        
+        <form action="backend/clear-matches.php" method="post">
+            <input type="submit" name="clear_matches" value="Clear Matches">
         </form>
     <?php else: ?>
         <p>You don't have permission to access this page.</p>
