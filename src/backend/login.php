@@ -11,6 +11,13 @@ if (isset($_GET['logout'])) {
     exit();
 }
 
+// Check if user is already logged in
+if (isset($_SESSION['username'])) {
+    // Redirect to homepage or dashboard
+    header("Location: frontend/index.html");
+    exit();
+}
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = $_POST['username'];
     $password = $_POST['password'];
