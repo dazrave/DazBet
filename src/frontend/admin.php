@@ -5,12 +5,15 @@ session_start();
 if (isset($_SESSION['username']) && $_SESSION['username'] === 'DazRave') {
     $isAdmin = true;
 
-    // List of admin pages (without the ".php" extension)
-    $adminPages = [
-        'admin-users', // Example admin-users.php
-        'admin-action-page' // Example admin-action-page.php
-        // Add more admin pages here
-    ];
+    // Find all admin pages in the frontend directory
+    $adminPages = array_filter(scandir('frontend'), function ($filename) {
+        return preg_match('/^admin-.*\.php$/', $filename);
+    });
+
+    // Remove ".php" extension from filenames
+    $adminPages = array_map(function ($filename) {
+        return pathinfo($filename, PATHINFO_FILENAME);
+    }, $adminPages);
 } else {
     $isAdmin = false;
 }
@@ -27,7 +30,7 @@ if (isset($_SESSION['username']) && $_SESSION['username'] === 'DazRave') {
     <?php if ($isAdmin): ?>
         <ul>
             <?php foreach ($adminPages as $page): ?>
-                <li><a href="<?php echo $page; ?>.php"><?php echo ucwords(str_replace('-', ' ', $page)); ?></a></li>
+                <li><a href="frontend/<?php echo $page; ?>.php"><?php echo ucwords(str_replace('-', ' ', $page)); ?></a></li>
             <?php endforeach; ?>
         </ul>
     <?php else: ?>
