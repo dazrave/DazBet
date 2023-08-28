@@ -7,7 +7,7 @@ $db = new SQLite3('/var/www/html/main.db');
 if (isset($_GET['logout'])) {
     // Destroy the session and redirect to login page
     session_destroy();
-    header("Location: login.html");
+    header("Location: ../frontend/index.php");
     exit();
 }
 
