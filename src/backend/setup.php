@@ -2,6 +2,13 @@
 // Open or create the SQLite database
 $db = new SQLite3('/var/www/html/main.db');
 
+// Drop existing tables
+$db->exec('DROP TABLE IF EXISTS PlayersInMatches');
+$db->exec('DROP TABLE IF EXISTS Referees');
+$db->exec('DROP TABLE IF EXISTS Bets');
+$db->exec('DROP TABLE IF EXISTS Matches');
+$db->exec('DROP TABLE IF EXISTS Users');
+
 // Execute SQL queries to create tables
 $db->exec('CREATE TABLE IF NOT EXISTS Users (
     UserID INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -53,5 +60,5 @@ $hashed_password = password_hash('Delta123', PASSWORD_DEFAULT);
 // Insert default user
 $db->exec("INSERT OR IGNORE INTO Users (Username, Password) VALUES ('DazRave', '$hashed_password')");
 
-echo "Tables and default user created successfully.";
+echo "Tables dropped and recreated successfully.";
 ?>
