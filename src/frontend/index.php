@@ -18,10 +18,10 @@ if (isset($_SESSION['username'])) {
 <body>
     <?php if ($loggedIn): ?>
         <p>Welcome, <?php echo $username; ?>!</p>
-        <a href="backend/login.php?logout">Logout</a>
+        <a href="/backend/login.php?logout">Logout</a>
     <?php else: ?>
         <p>Welcome to DazBet</p>
-        <a href="backend/login.html">Login</a>
+        <a href="login.php">Login</a>
     <?php endif; ?>
 </body>
 </html>
