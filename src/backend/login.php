@@ -14,7 +14,7 @@ if (isset($_GET['logout'])) {
 // Check if user is already logged in
 if (isset($_SESSION['username'])) {
     // Redirect to homepage or dashboard
-    header("Location: frontend/index.html");
+    header("Location: /frontend");
     exit();
 }
 
