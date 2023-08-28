@@ -1,6 +1,18 @@
 <?php
 session_start();
 
+// Function to create a user
+function createUser($username, $password) {
+    $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+
+    $db = new SQLite3('/var/www/html/main.db');
+    $stmt = $db->prepare('INSERT INTO Users (Username, Password) VALUES (:username, :password)');
+    $stmt->bindValue(':username', $username, SQLITE3_TEXT);
+    $stmt->bindValue(':password', $hashedPassword, SQLITE3_TEXT);
+
+    return $stmt->execute();
+}
+
 // Check if user is logged in and is 'DazRave'
 if (isset($_SESSION['username']) && $_SESSION['username'] === 'DazRave') {
     $isAdmin = true;
@@ -18,8 +30,14 @@ if ($isAdmin && isset($_POST['clear'])) {
 
 // Handle creating random users
 if ($isAdmin && isset($_POST['create_random_users'])) {
-    // Logic to create 10 random users for testing
-    // Implement your random user creation logic here
+    // Create 10 random users for testing
+    $testUserPrefix = 'testuser';
+    for ($i = 1; $i <= 10; $i++) {
+        $username = $testUserPrefix . $i;
+        $password = 'password'; // Change this to the desired password
+
+        createUser($username, $password);
+    }
 
     echo "10 random users created for testing.";
 }
