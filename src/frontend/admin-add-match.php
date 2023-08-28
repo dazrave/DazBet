@@ -16,7 +16,7 @@ if (isset($_SESSION['username']) && $_SESSION['username'] === 'DazRave') {
         'User1' => 100, // Example DazCoins amount
         'User2' => 100, // Example DazCoins amount
         'User3' => 100, // Example DazCoins amount
-    };
+    ];
 
     $userCoins = array_merge($userCoins, $testUsers);
 } else {
