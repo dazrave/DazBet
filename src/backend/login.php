@@ -14,7 +14,7 @@ if (isset($_GET['logout'])) {
 // Check if user is already logged in
 if (isset($_SESSION['username'])) {
     // Redirect to homepage or dashboard
-    header("Location: /frontend");
+    header("Location: ../frontend/index.php"); // Updated the redirect path
     exit();
 }
 
@@ -29,8 +29,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($row = $result->fetchArray()) {
         if (password_verify($password, $row['Password'])) {
             $_SESSION['username'] = $username;
-            echo "Login successful";
             // Redirect to the main page or dashboard
+            header("Location: ../frontend/index.php"); // Updated the redirect path
+            exit();
         } else {
             echo "Invalid password";
         }
