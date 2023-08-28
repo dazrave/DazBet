@@ -1,9 +1,15 @@
 <?php
 session_start();
 
-// Check if user is logged in and is 'Darren'
+// Check if user is logged in and is 'DazRave'
 if (isset($_SESSION['username']) && $_SESSION['username'] === 'DazRave') {
     $isAdmin = true;
+
+    // List of admin pages (without the ".php" extension)
+    $adminPages = [
+        'admin-users', // Example admin-users.php
+        // Add more admin pages here
+    ];
 } else {
     $isAdmin = false;
 }
@@ -19,8 +25,9 @@ if (isset($_SESSION['username']) && $_SESSION['username'] === 'DazRave') {
     
     <?php if ($isAdmin): ?>
         <ul>
-            <li><a href="admin-users.php">View Registered Users</a></li>
-            <!-- Add more links to other admin pages here -->
+            <?php foreach ($adminPages as $page): ?>
+                <li><a href="<?php echo $page; ?>.php"><?php echo ucwords(str_replace('-', ' ', $page)); ?></a></li>
+            <?php endforeach; ?>
         </ul>
     <?php else: ?>
         <p>You don't have permission to access this page.</p>
