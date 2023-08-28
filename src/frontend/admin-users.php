@@ -2,7 +2,7 @@
 session_start();
 
 // Check if user is logged in and is 'Darren'
-if (isset($_SESSION['username']) && $_SESSION['username'] === 'Darren') {
+if (isset($_SESSION['username']) && $_SESSION['username'] === 'DazRave') {
     $db = new SQLite3('/var/www/html/main.db');
     $result = $db->query('SELECT Username FROM Users');
 
