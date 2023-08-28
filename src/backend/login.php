@@ -3,6 +3,14 @@ session_start();
 
 $db = new SQLite3('/var/www/html/main.db');
 
+// Check if "logout" parameter is present
+if (isset($_GET['logout'])) {
+    // Destroy the session and redirect to login page
+    session_destroy();
+    header("Location: login.html");
+    exit();
+}
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = $_POST['username'];
     $password = $_POST['password'];
