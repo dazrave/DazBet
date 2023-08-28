@@ -8,6 +8,7 @@ if (isset($_SESSION['username']) && $_SESSION['username'] === 'DazRave') {
     // List of admin pages (without the ".php" extension)
     $adminPages = [
         'admin-users', // Example admin-users.php
+        'admin-action-page' // Example admin-action-page.php
         // Add more admin pages here
     ];
 } else {
