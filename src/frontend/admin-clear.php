@@ -13,6 +13,15 @@ function createUser($username, $password) {
     return $stmt->execute();
 }
 
+// Function to clear test users
+function clearTestUsers() {
+    $db = new SQLite3('/var/www/html/main.db');
+    $stmt = $db->prepare('DELETE FROM Users WHERE Username LIKE :prefix');
+    $stmt->bindValue(':prefix', 'testuser%', SQLITE3_TEXT);
+
+    return $stmt->execute();
+}
+
 // Check if user is logged in and is 'DazRave'
 if (isset($_SESSION['username']) && $_SESSION['username'] === 'DazRave') {
     $isAdmin = true;
@@ -41,6 +50,14 @@ if ($isAdmin && isset($_POST['create_random_users'])) {
 
     echo "10 random users created for testing.";
 }
+
+// Handle clearing test users
+if ($isAdmin && isset($_POST['clear_test_users'])) {
+    // Clear all test users
+    clearTestUsers();
+
+    echo "Test users cleared.";
+}
 ?>
 
 <!DOCTYPE html>
@@ -58,6 +75,10 @@ if ($isAdmin && isset($_POST['create_random_users'])) {
         
         <form action="admin-clear.php" method="post">
             <input type="submit" name="create_random_users" value="Create 10 Random Users">
+        </form>
+
+        <form action="admin-clear.php" method="post">
+            <input type="submit" name="clear_test_users" value="Clear Test Users">
         </form>
     <?php else: ?>
         <p>You don't have permission to access this page.</p>
