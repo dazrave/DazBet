@@ -13,7 +13,7 @@
         
         <input type="submit" value="Login">
     </form>
-    <p>Don't have an account? <a href="register.html">Register here</a>.</p>
+    <p>Don't have an account? <a href="register.php">Register here</a>.</p>
 
     <?php
     // Here, you can include PHP logic for processing the login form.
