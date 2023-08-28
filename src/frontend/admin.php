@@ -6,7 +6,7 @@ if (isset($_SESSION['username']) && $_SESSION['username'] === 'DazRave') {
     $isAdmin = true;
 
     // Find all admin pages in the frontend directory
-    $adminPages = array_filter(scandir('frontend'), function ($filename) {
+    $adminPages = array_filter(scandir('../frontend'), function ($filename) {
         return preg_match('/^admin-.*\.php$/', $filename);
     });
 
@@ -30,7 +30,7 @@ if (isset($_SESSION['username']) && $_SESSION['username'] === 'DazRave') {
     <?php if ($isAdmin): ?>
         <ul>
             <?php foreach ($adminPages as $page): ?>
-                <li><a href="frontend/<?php echo $page; ?>.php"><?php echo ucwords(str_replace('-', ' ', $page)); ?></a></li>
+                <li><a href="../frontend/<?php echo $page; ?>.php"><?php echo ucwords(str_replace('-', ' ', $page)); ?></a></li>
             <?php endforeach; ?>
         </ul>
     <?php else: ?>
