@@ -5,7 +5,7 @@ $db = new SQLite3('/var/www/html/main.db');
 // Execute SQL queries to create tables
 $db->exec('CREATE TABLE IF NOT EXISTS Users (
     UserID INTEGER PRIMARY KEY AUTOINCREMENT,
-    Username TEXT NOT NULL,
+    Username TEXT NOT NULL UNIQUE,
     Password TEXT NOT NULL,
     DazCoins INTEGER DEFAULT 100,
     Wins INTEGER DEFAULT 0,
@@ -47,6 +47,11 @@ $db->exec('CREATE TABLE IF NOT EXISTS PlayersInMatches (
     FOREIGN KEY (UserID) REFERENCES Users(UserID)
 )');
 
-echo "Tables created successfully.";
+// Hash default password
+$hashed_password = password_hash('Delta123', PASSWORD_DEFAULT);
 
+// Insert default user
+$db->exec("INSERT OR IGNORE INTO Users (Username, Password) VALUES ('DazRave', '$hashed_password')");
+
+echo "Tables and default user created successfully.";
 ?>
