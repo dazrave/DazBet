@@ -1,17 +1,17 @@
 <?php
 session_start();
 
-// Check if user is logged in and is 'Darren'
+// Check if user is logged in and is 'DazRave'
 if (isset($_SESSION['username']) && $_SESSION['username'] === 'DazRave') {
     $db = new SQLite3('/var/www/html/main.db');
-    $result = $db->query('SELECT Username FROM Users');
+    $result = $db->query('SELECT Username, DazCoins FROM Users');
 
-    $usernames = [];
+    $userCoins = [];
     while ($row = $result->fetchArray()) {
-        $usernames[] = $row['Username'];
+        $userCoins[$row['Username']] = $row['DazCoins'];
     }
 } else {
-    header("Location: index.php"); // Redirect if not logged in as 'Darren'
+    header("Location: index.php"); // Redirect if not logged in as 'DazRave'
     exit();
 }
 ?>
@@ -23,10 +23,10 @@ if (isset($_SESSION['username']) && $_SESSION['username'] === 'DazRave') {
 </head>
 <body>
     <h1>Admin Users</h1>
-    <?php if (isset($usernames)): ?>
+    <?php if (!empty($userCoins)): ?>
         <ul>
-            <?php foreach ($usernames as $username): ?>
-                <li><?php echo $username; ?></li>
+            <?php foreach ($userCoins as $username => $coins): ?>
+                <li><?php echo "{$username} - DazCoins: {$coins}"; ?></li>
             <?php endforeach; ?>
         </ul>
     <?php endif; ?>
