@@ -15,5 +15,11 @@
     </form>
     <p>Don't have an account? <a href="register.html">Register here</a>.</p>
 
+    <?php
+    // Here, you can include PHP logic for processing the login form.
+    // For example, handling form submission, validating user credentials, etc.
+    // This area is where you can integrate your PHP code.
+    ?>
+
 </body>
 </html>
