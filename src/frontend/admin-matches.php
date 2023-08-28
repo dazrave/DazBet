@@ -5,20 +5,28 @@ session_start();
 if (isset($_SESSION['username']) && $_SESSION['username'] === 'DazRave') {
     $db = new SQLite3('/var/www/html/main.db');
 
-    // Retrieve all matches and their details
-    $result = $db->query('SELECT * FROM Matches ORDER BY YourActualColumnName DESC'); // Replace YourActualColumnName
+    // Get all matches and players
+    $query = 'SELECT Matches.MatchID, Matches.Status, Matches.WinnerTeam, PlayersInMatches.UserID, PlayersInMatches.Team FROM Matches 
+              LEFT JOIN PlayersInMatches ON Matches.MatchID = PlayersInMatches.MatchID 
+              ORDER BY Matches.MatchID';
+    $result = $db->query($query);
 
     $matches = [];
-    while ($row = $result->fetchArray()) {
-        $teamA = explode(', ', $row['TeamA']);
-        $teamB = explode(', ', $row['TeamB']);
-        $timestamp = $row['YourActualColumnName']; // Replace YourActualColumnName
-
-        $matches[] = [
-            'teamA' => $teamA,
-            'teamB' => $teamB,
-            'timestamp' => $timestamp
-        ];
+    while ($row = $result->fetchArray(SQLITE3_ASSOC)) {
+        $matchID = $row['MatchID'];
+        if (!isset($matches[$matchID])) {
+            $matches[$matchID] = [
+                'Status' => $row['Status'],
+                'WinnerTeam' => $row['WinnerTeam'],
+                'Players' => []
+            ];
+        }
+        if ($row['UserID']) {
+            $matches[$matchID]['Players'][] = [
+                'UserID' => $row['UserID'],
+                'Team' => $row['Team']
+            ];
+        }
     }
 } else {
     header("Location: index.php"); // Redirect if not logged in as 'DazRave'
@@ -33,13 +41,17 @@ if (isset($_SESSION['username']) && $_SESSION['username'] === 'DazRave') {
 </head>
 <body>
     <h1>Admin Matches</h1>
-    
     <?php if (!empty($matches)): ?>
-        <?php foreach ($matches as $match): ?>
-            <h2>Match on <?php echo $match['timestamp']; ?></h2>
-            <p>Team A: <?php echo implode(', ', $match['teamA']); ?></p>
-            <p>Team B: <?php echo implode(', ', $match['teamB']); ?></p>
-        <?php endforeach; ?>
+        <ul>
+            <?php foreach ($matches as $matchID => $match): ?>
+                <li>Match ID: <?php echo $matchID; ?>, Status: <?php echo $match['Status']; ?>, Winner: <?php echo $match['WinnerTeam']; ?></li>
+                <ul>
+                    <?php foreach ($match['Players'] as $player): ?>
+                        <li>Player ID: <?php echo $player['UserID']; ?>, Team: <?php echo $player['Team']; ?></li>
+                    <?php endforeach; ?>
+                </ul>
+            <?php endforeach; ?>
+        </ul>
     <?php else: ?>
         <p>No matches found.</p>
     <?php endif; ?>
