@@ -31,6 +31,6 @@ if (isset($_SESSION['username']) && $_SESSION['username'] === 'DazRave') {
         </ul>
     <?php endif; ?>
 
-    <p><a href="index.php">Back to Home</a></p>
+    <p><a href="admin.php">Back to Admin</a></p>
 </body>
 </html>
