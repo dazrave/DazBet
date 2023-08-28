@@ -6,13 +6,13 @@ if (isset($_SESSION['username']) && $_SESSION['username'] === 'DazRave') {
     $db = new SQLite3('/var/www/html/main.db');
 
     // Retrieve all matches and their details
-    $result = $db->query('SELECT * FROM Matches ORDER BY Timestamp DESC');
+    $result = $db->query('SELECT * FROM Matches ORDER BY YourColumnName DESC'); // Replace YourColumnName
 
     $matches = [];
     while ($row = $result->fetchArray()) {
         $teamA = explode(', ', $row['TeamA']);
         $teamB = explode(', ', $row['TeamB']);
-        $timestamp = $row['Timestamp'];
+        $timestamp = $row['YourColumnName']; // Replace YourColumnName
 
         $matches[] = [
             'teamA' => $teamA,
