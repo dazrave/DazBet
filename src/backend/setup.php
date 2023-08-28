@@ -1,6 +1,6 @@
 <?php
 // Open or create the SQLite database
-$db = new SQLite3('/path/to/main.db');
+$db = new SQLite3('/var/www/html/main.db');
 
 // Execute SQL queries to create tables
 $db->exec('CREATE TABLE IF NOT EXISTS Users (

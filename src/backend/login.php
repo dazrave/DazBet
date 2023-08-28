@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-$db = new SQLite3('/path/to/main.db');
+$db = new SQLite3('/var/www/html/main.db');
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = $_POST['username'];
