@@ -8,7 +8,7 @@ if (isset($_SESSION['username']) && $_SESSION['username'] === 'DazRave') {
     // Get all matches and players
     $query = 'SELECT Matches.MatchID, Matches.Status, Matches.WinnerTeam, PlayersInMatches.UserID, PlayersInMatches.Team FROM Matches 
               LEFT JOIN PlayersInMatches ON Matches.MatchID = PlayersInMatches.MatchID 
-              ORDER BY Matches.MatchID';
+              ORDER BY Matches.MatchID, PlayersInMatches.RecordID'; // Adjusted the ORDER BY clause
     $result = $db->query($query);
 
     $matches = [];

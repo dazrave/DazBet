@@ -61,4 +61,25 @@ $hashed_password = password_hash('Delta123', PASSWORD_DEFAULT);
 $db->exec("INSERT OR IGNORE INTO Users (Username, Password) VALUES ('DazRave', '$hashed_password')");
 
 echo "Tables dropped and recreated successfully.";
+
+// Insert test users
+$testUsers = [
+    ['username' => 'User1', 'password' => 'Test123'],
+    ['username' => 'User2', 'password' => 'Test123'],
+    ['username' => 'User3', 'password' => 'Test123'],
+    // ... add more test users if needed
+];
+
+foreach ($testUsers as $user) {
+    $username = $user['username'];
+    $password = password_hash($user['password'], PASSWORD_DEFAULT);
+
+    // Insert user into the database
+    $stmt = $db->prepare('INSERT INTO Users (Username, Password) VALUES (:username, :password)');
+    $stmt->bindValue(':username', $username, SQLITE3_TEXT);
+    $stmt->bindValue(':password', $password, SQLITE3_TEXT);
+    $stmt->execute();
+}
+
+echo "Test users inserted successfully.";
 ?>
