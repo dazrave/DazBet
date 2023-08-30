@@ -1,6 +1,6 @@
 <?php
 // Open or create the SQLite database
-$db = new SQLite3('/var/www/html/main.db');
+include 'db_connection.php';
 
 // Drop existing tables
 $db->exec('DROP TABLE IF EXISTS PlayersInMatches');

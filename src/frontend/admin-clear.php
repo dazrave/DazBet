@@ -5,7 +5,7 @@ session_start();
 function createUser($username, $password) {
     $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
-    $db = new SQLite3('/var/www/html/main.db');
+    $db = new SQLite3('/main.db');
     $stmt = $db->prepare('INSERT INTO Users (Username, Password) VALUES (:username, :password)');
     $stmt->bindValue(':username', $username, SQLITE3_TEXT);
     $stmt->bindValue(':password', $hashedPassword, SQLITE3_TEXT);
@@ -15,7 +15,7 @@ function createUser($username, $password) {
 
 // Function to clear test users
 function clearTestUsers() {
-    $db = new SQLite3('/var/www/html/main.db');
+    $db = new SQLite3('/main.db');
     $stmt = $db->prepare('DELETE FROM Users WHERE Username LIKE :prefix');
     $stmt->bindValue(':prefix', 'testuser%', SQLITE3_TEXT);
 

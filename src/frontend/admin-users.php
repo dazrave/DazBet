@@ -3,7 +3,7 @@ session_start();
 
 // Check if user is logged in and is 'DazRave'
 if (isset($_SESSION['username']) && $_SESSION['username'] === 'DazRave') {
-    $db = new SQLite3('/var/www/html/main.db');
+    $db = new SQLite3('/main.db');
     $result = $db->query('SELECT Username, DazCoins FROM Users');
 
     $userCoins = [];

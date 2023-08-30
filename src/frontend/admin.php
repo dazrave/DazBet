@@ -32,6 +32,7 @@ if (isset($_SESSION['username']) && $_SESSION['username'] === 'DazRave') {
             <?php foreach ($adminPages as $page): ?>
                 <li><a href="../frontend/<?php echo $page; ?>.php"><?php echo ucwords(str_replace('-', ' ', $page)); ?></a></li>
             <?php endforeach; ?>
+            <li><a href="../backend/setup.php">***SETUP***</a></li>
         </ul>
     <?php else: ?>
         <p>You don't have permission to access this page.</p>

@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-$db = new SQLite3('/var/www/html/main.db');
+include 'db_connection.php';
 
 // Check if "logout" parameter is present
 if (isset($_GET['logout'])) {

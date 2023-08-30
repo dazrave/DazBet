@@ -3,7 +3,7 @@ session_start();
 
 // Check if user is logged in and is 'DazRave'
 if (isset($_SESSION['username']) && $_SESSION['username'] === 'DazRave') {
-    $db = new SQLite3('/var/www/html/main.db');
+    $db = new SQLite3('/main.db');
 
     // Get all matches and players
     $query = 'SELECT Matches.MatchID, Matches.Status, Matches.WinnerTeam, PlayersInMatches.UserID, PlayersInMatches.Team FROM Matches 
